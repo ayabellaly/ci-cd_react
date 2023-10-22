@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 app.use(cors());
 app.use(express.json());
@@ -9,8 +14,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  password: "password",
-  database: "employeeSystem",
+  password: "",
+  database: "mydb",
 });
 
 app.post("/create", (req, res) => {
@@ -70,6 +75,4 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("Yey, your server is running on port 3001");
-});
+

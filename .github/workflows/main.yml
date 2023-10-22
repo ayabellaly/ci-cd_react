@@ -1,0 +1,33 @@
+name: MERN CI/CD with Docker
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+
+    - name: Build Docker image for client
+      run: docker build -t aya20/my-nodejs-app:latest ./client
+
+    - name: Build Docker image for server
+      run: docker build -t aya20/rjs-app:latest ./server
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+    - name: Push Docker images to Docker Hub
+      run: |
+          docker push aya20/my-nodejs-app:latest
+          docker push aya20/rjs-app:latest
