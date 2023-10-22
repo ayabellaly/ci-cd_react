@@ -1,4 +1,4 @@
-name: MERN CI/CD with Docker
+name: reactMysql CI/CD with Docker
 
 on:
   push:
