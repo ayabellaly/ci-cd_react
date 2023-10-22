@@ -12,10 +12,12 @@ pipeline {
             steps {
                 script {
                     // Run tests for the server
-                    bat 'docker run --rm aya20/my-nodejs-app:latest npm test'
+                    bat 'docker run --rm -w /path/to/your/app aya20/my-nodejs-app:latest npm test'
+
 
                     // Run tests for the client
-                    bat 'docker run --rm aya20/rjs-app:latest npm test'
+                    bat 'docker run --rm -v /path/to/host/app:/app aya20/my-nodejs-app:latest npm test'
+
                 }
             }
         }
